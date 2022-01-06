@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/collegesFragment"
-        android:name="com.me.kt_ontario_colleges.ui.CollegesFragment"
+        android:name="com.me.kt_ontario_colleges.ui.colleges.view.CollegesFragment"
         tools:layout="@layout/fragment_colleges"
         android:label="Ontario Colleges" >
         <action

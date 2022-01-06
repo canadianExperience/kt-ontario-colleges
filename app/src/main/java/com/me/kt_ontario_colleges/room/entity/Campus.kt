@@ -8,8 +8,8 @@ data class Campus(
     var name: String,
     var address: String,
     var phone: String,
-    var ownerId: Int,
+    var ownerId: Long = 0L,
 
     @PrimaryKey(autoGenerate = true)
-    var id: Int? = null
+    var id: Long = 0L
 )
