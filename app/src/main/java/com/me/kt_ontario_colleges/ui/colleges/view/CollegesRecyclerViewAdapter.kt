@@ -11,10 +11,14 @@ import com.me.kt_ontario_colleges.R
 import com.me.kt_ontario_colleges.room.entity.College
 import javax.inject.Inject
 
-class CollegesRecyclerViewAdapter @Inject constructor(
-
-) : RecyclerView.Adapter<CollegesRecyclerViewAdapter.CollegeViewHolder>() {
+class CollegesRecyclerViewAdapter : RecyclerView.Adapter<CollegesRecyclerViewAdapter.CollegeViewHolder>() {
     class CollegeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    private var onItemClickListener: ((Long) -> Unit) ?= null
+
+    fun setOnItemClickListener(listener : (Long) -> Unit){
+        onItemClickListener = listener
+    }
 
     private val diffUtil = object : DiffUtil.ItemCallback<College>(){
         override fun areItemsTheSame(oldItem: College, newItem: College): Boolean {
@@ -43,6 +47,12 @@ class CollegesRecyclerViewAdapter @Inject constructor(
 
         holder.itemView.apply {
             name.text = college.name
+
+            this.setOnClickListener {
+                onItemClickListener?.let {
+                    it(college.id)
+                }
+            }
         }
     }
 

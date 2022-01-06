@@ -17,12 +17,15 @@
 
     <fragment
         android:id="@+id/campusesFragment"
-        android:name="com.me.kt_ontario_colleges.ui.CampusesFragment"
+        android:name="com.me.kt_ontario_colleges.ui.campuses.view.CampusesFragment"
         tools:layout="@layout/fragment_campuses"
         android:label="Campuses" >
         <action
             android:id="@+id/action_campuses_to_map"
             app:destination="@id/mapFragment" />
+        <argument
+            android:name="ownerId"
+            app:argType="long" />
     </fragment>
 
     <fragment

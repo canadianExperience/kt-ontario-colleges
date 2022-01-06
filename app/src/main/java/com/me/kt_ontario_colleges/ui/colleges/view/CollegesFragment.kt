@@ -4,18 +4,21 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.me.kt_ontario_colleges.R
 import com.me.kt_ontario_colleges.databinding.FragmentCollegesBinding
 import com.me.kt_ontario_colleges.ui.colleges.viewmodel.CollegesViewModel
-import javax.inject.Inject
+import com.me.kt_ontario_colleges.ui.exhaustive
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
-class CollegesFragment @Inject constructor(
-    private val collegesRecyclerViewAdapter: CollegesRecyclerViewAdapter
-) : Fragment(R.layout.fragment_colleges) {
+@AndroidEntryPoint
+class CollegesFragment : Fragment(R.layout.fragment_colleges) {
     private var fragmentBinding: FragmentCollegesBinding? = null
-    private lateinit var viewModel: CollegesViewModel
+
+    private val viewModel: CollegesViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -23,16 +26,39 @@ class CollegesFragment @Inject constructor(
         val binding = FragmentCollegesBinding.bind(view)
         fragmentBinding = binding
 
-        viewModel = ViewModelProvider(requireActivity())[CollegesViewModel::class.java]
+        val collegesRecyclerViewAdapter = CollegesRecyclerViewAdapter()
 
         binding.collegesRecyclerView.apply {
             adapter = collegesRecyclerViewAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
 
+        //Set college click
+        collegesRecyclerViewAdapter.setOnItemClickListener {
+            viewModel.onCollegeClick(it)
+        }
+
+        //Observe colleges
         viewModel.colleges.observe(viewLifecycleOwner){
             collegesRecyclerViewAdapter.colleges = it
         }
+
+        //College events
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.collegeEvent.collect { event->
+                when(event){
+                    is CollegesViewModel.CollegeEvent.NavigateToCampusesFragment -> {
+                        goToCampusesFragment(event.ownerId)
+                    }
+                }.exhaustive
+
+            }
+        }
+    }
+
+    private fun goToCampusesFragment(ownerId: Long) {
+        val action = CollegesFragmentDirections.actionCollegesToCampuses(ownerId)
+        findNavController().navigate(action)
     }
 
     override fun onDestroy() {

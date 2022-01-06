@@ -21,6 +21,9 @@ interface CollegeDao {
     @Query("SELECT * FROM colleges_table")
     fun getColleges(): LiveData<List<College>>
 
+    @Query("SELECT * FROM campuses_table WHERE ownerId=:id")
+    fun getCampusesByOwnerId(id: Long): LiveData<List<Campus>>
+
     @Transaction
     suspend fun insertCompletedCollege(
         college: College,

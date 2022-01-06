@@ -14,13 +14,13 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
-    @Inject
-    lateinit var fragmentFactory: AppFragmentFactory
+//    @Inject
+//    lateinit var fragmentFactory: AppFragmentFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportFragmentManager.fragmentFactory = fragmentFactory
+//        supportFragmentManager.fragmentFactory = fragmentFactory
 
 
         val binding = ActivityMainBinding.inflate(layoutInflater)
