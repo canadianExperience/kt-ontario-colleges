@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/collegesFragment">
+
+    <fragment
+        android:id="@+id/collegesFragment"
+        android:name="com.me.kt_ontario_colleges.ui.CollegesFragment"
+        tools:layout="@layout/fragment_colleges"
+        android:label="Ontario Colleges" >
+        <action
+            android:id="@+id/action_colleges_to_campuses"
+            app:destination="@id/campusesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/campusesFragment"
+        android:name="com.me.kt_ontario_colleges.ui.CampusesFragment"
+        tools:layout="@layout/fragment_campuses"
+        android:label="Campuses" >
+        <action
+            android:id="@+id/action_campuses_to_map"
+            app:destination="@id/mapFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.me.kt_ontario_colleges.ui.MapFragment"
+        tools:layout="@layout/fragment_map"
+        android:label="Map" />
+</navigation>
