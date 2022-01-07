@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.me.kt_ontario_colleges.ui.MapFragment"
+        android:name="com.me.kt_ontario_colleges.ui.map.MapFragment"
         tools:layout="@layout/fragment_map"
         android:label="Map" />
 </navigation>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.google.android.gms.maps.MapFragment
 import com.me.kt_ontario_colleges.R
 import com.me.kt_ontario_colleges.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,5 +38,12 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, null)
     }
+
+//    internal fun onOpenMap(){
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.container, MapFragment)
+//            .commitNow()
+//
+//    }
 
 }

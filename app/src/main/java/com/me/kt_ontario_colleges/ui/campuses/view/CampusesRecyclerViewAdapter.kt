@@ -13,6 +13,12 @@ import com.me.kt_ontario_colleges.room.entity.Campus
 class CampusesRecyclerViewAdapter : RecyclerView.Adapter<CampusesRecyclerViewAdapter.CampusViewHolder>() {
     class CampusViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
+    private var onItemClickListener: (() -> Unit) ?= null
+
+    fun setOnItemClickListener(listener : () -> Unit){
+        onItemClickListener = listener
+    }
+
     private val diffUtil = object : DiffUtil.ItemCallback<Campus>(){
         override fun areItemsTheSame(oldItem: Campus, newItem: Campus): Boolean {
             return oldItem == newItem
@@ -40,6 +46,12 @@ class CampusesRecyclerViewAdapter : RecyclerView.Adapter<CampusesRecyclerViewAda
 
         holder.itemView.apply {
             name.text = college.name
+
+            this.setOnClickListener {
+                onItemClickListener?.let {
+                    it()
+                }
+            }
         }
     }
 

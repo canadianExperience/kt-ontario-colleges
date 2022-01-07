@@ -30,6 +30,7 @@ abstract class CollegeDataBase: RoomDatabase() {
 
             applicationScope.launch {
                 collegeDao.insertCompletedCollege(centennialCollege(), centennialCollegeCampuses())
+                collegeDao.insertCompletedCollege(senecaCollege(), senecaCollegeCampuses())
             }
         }
     }
