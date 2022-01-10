@@ -50,7 +50,7 @@ class CollegesFragment : Fragment(R.layout.fragment_colleges) {
             viewModel.collegeEvent.collect { event->
                 when(event){
                     is CollegesViewModel.CollegeEvent.NavigateToCampusesFragment -> {
-                        goToCampusesFragment(event.ownerId)
+                        goToCampusesFragment(event.collegeId)
                     }
                 }.exhaustive
 
@@ -58,8 +58,8 @@ class CollegesFragment : Fragment(R.layout.fragment_colleges) {
         }
     }
 
-    private fun goToCampusesFragment(ownerId: Long) {
-        val action = CollegesFragmentDirections.actionCollegesToCampuses(ownerId)
+    private fun goToCampusesFragment(collegeId: Long) {
+        val action = CollegesFragmentDirections.actionCollegesToCampuses(collegeId)
         findNavController().navigate(action)
     }
 

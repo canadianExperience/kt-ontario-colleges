@@ -26,7 +26,7 @@ class CollegesViewModel @Inject constructor(
     }
 
     sealed class CollegeEvent{
-        data class NavigateToCampusesFragment(val ownerId: Long) : CollegeEvent()
+        data class NavigateToCampusesFragment(val collegeId: Long) : CollegeEvent()
     }
 
 }

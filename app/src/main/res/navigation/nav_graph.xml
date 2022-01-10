@@ -24,13 +24,21 @@
             android:id="@+id/action_campuses_to_map"
             app:destination="@id/mapFragment" />
         <argument
-            android:name="ownerId"
+            android:name="collegeId"
             app:argType="long" />
     </fragment>
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.me.kt_ontario_colleges.ui.map.MapFragment"
+        android:name="com.me.kt_ontario_colleges.ui.map.view.MapFragment"
         tools:layout="@layout/fragment_map"
-        android:label="Map" />
+        android:label="Map" >
+        <argument
+            android:name="campusId"
+            app:argType="long" />
+
+        <argument
+            android:name="collegeId"
+            app:argType="long" />
+    </fragment>
 </navigation>

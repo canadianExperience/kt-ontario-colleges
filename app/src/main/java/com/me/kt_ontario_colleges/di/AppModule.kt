@@ -1,14 +1,20 @@
 package com.me.kt_ontario_colleges.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.me.kt_ontario_colleges.R
 import com.me.kt_ontario_colleges.repository.CollegeRepository
 import com.me.kt_ontario_colleges.repository.CollegeRepositoryInterface
 import com.me.kt_ontario_colleges.room.CollegeDao
 import com.me.kt_ontario_colleges.room.CollegeDataBase
+import com.me.kt_ontario_colleges.ui.getProgressDrawable
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -40,6 +46,15 @@ object AppModule {
     @Singleton
     @Provides
     fun injectRepository(dao: CollegeDao) = CollegeRepository(dao) as CollegeRepositoryInterface
+//
+//    @Singleton
+//    @Provides
+//    fun injectGlide(@ApplicationContext context: Context) = Glide.with(context)
+//        .setDefaultRequestOptions(
+//            RequestOptions()
+//                .placeholder(getProgressDrawable(context))
+//                .error(R.drawable.ic_image)
+//        )
 
 
     @ApplicationScope

@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "colleges_table")
 data class College(
     var name: String,
+    var logo: Int,
 
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0L

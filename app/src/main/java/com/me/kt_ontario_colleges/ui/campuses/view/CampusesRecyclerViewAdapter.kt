@@ -13,9 +13,9 @@ import com.me.kt_ontario_colleges.room.entity.Campus
 class CampusesRecyclerViewAdapter : RecyclerView.Adapter<CampusesRecyclerViewAdapter.CampusViewHolder>() {
     class CampusViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    private var onItemClickListener: (() -> Unit) ?= null
+    private var onItemClickListener: ((Pair<Long,Long>) -> Unit) ?= null
 
-    fun setOnItemClickListener(listener : () -> Unit){
+    fun setOnItemClickListener(listener : (Pair<Long,Long>) -> Unit){
         onItemClickListener = listener
     }
 
@@ -42,18 +42,20 @@ class CampusesRecyclerViewAdapter : RecyclerView.Adapter<CampusesRecyclerViewAda
 
     override fun onBindViewHolder(holder: CampusViewHolder, position: Int) {
         val name = holder.itemView.findViewById<TextView>(R.id.name)
-        val college = campuses[position]
+        val campus = campuses[position]
 
         holder.itemView.apply {
-            name.text = college.name
+            name.text = campus.name
 
             this.setOnClickListener {
                 onItemClickListener?.let {
-                    it()
+                    it(Pair(campus.id, campus.ownerId))
                 }
             }
         }
     }
+
+
 
     override fun getItemCount(): Int {
         return campuses.size

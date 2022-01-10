@@ -1,4 +1,4 @@
-package com.me.kt_ontario_colleges.ui.campuses.viewmodel
+package com.me.kt_ontario_colleges.ui.map.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
@@ -14,23 +14,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CampusesViewModel @Inject constructor(
+class MapViewModel @Inject constructor(
     private val repository: CollegeRepositoryInterface,
     private val state: SavedStateHandle
 ): ViewModel(){
-    private val campusEventChannel = Channel<CampusEvent>()
-    val campusEvent = campusEventChannel.receiveAsFlow()
-
+    
     private val collegeId = state.get<Long>("collegeId") ?: 0L
+    private val campusId = state.get<Long>("campusId") ?: 0L
 
     val campuses: LiveData<List<Campus>> = repository.getCampusesByOwnerId(collegeId)
 
-    fun onCampusClick(campusId: Long, collegeId: Long) = viewModelScope.launch {
-        campusEventChannel.send(CampusEvent.NavigateToMapFragment(campusId, collegeId))
-    }
-
-    sealed class CampusEvent{
-        data class NavigateToMapFragment(val campusId: Long, val collegeId: Long) : CampusEvent()
-    }
 
 }

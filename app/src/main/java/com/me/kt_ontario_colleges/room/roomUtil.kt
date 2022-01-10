@@ -1,10 +1,11 @@
 package com.me.kt_ontario_colleges.room
 
+import com.me.kt_ontario_colleges.R
 import com.me.kt_ontario_colleges.room.entity.Campus
 import com.me.kt_ontario_colleges.room.entity.College
 
-fun centennialCollege() = College("Centennial College")
-fun senecaCollege() = College("Seneca")
+fun centennialCollege() = College("Centennial College", R.drawable.centennial)
+fun senecaCollege() = College("Seneca", R.drawable.sececa)
 
 fun centennialCollegeCampuses(): List<Campus>{
     val progress = Campus(
