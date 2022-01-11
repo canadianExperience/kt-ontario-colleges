@@ -36,7 +36,7 @@ class CollegesFragment : Fragment(R.layout.fragment_colleges) {
 
         //Set college click
         collegesRecyclerViewAdapter.setOnItemClickListener {
-            viewModel.onCollegeClick(it.first, it.second)
+            viewModel.onCollegeClick(it.first, it.second, it.third)
         }
 
         //Observe colleges
@@ -49,7 +49,7 @@ class CollegesFragment : Fragment(R.layout.fragment_colleges) {
             viewModel.collegeEvent.collect { event->
                 when(event){
                     is CollegesViewModel.CollegeEvent.NavigateToCampusesFragment -> {
-                        goToCampusesFragment(event.collegeId, event.logo)
+                        goToCampusesFragment(event.collegeId, event.logo, event.name)
                     }
                 }.exhaustive
 
@@ -57,8 +57,8 @@ class CollegesFragment : Fragment(R.layout.fragment_colleges) {
         }
     }
 
-    private fun goToCampusesFragment(collegeId: Long, logo: Int) {
-        val action = CollegesFragmentDirections.actionCollegesToCampuses(collegeId, logo)
+    private fun goToCampusesFragment(collegeId: Long, logo: Int, name: String) {
+        val action = CollegesFragmentDirections.actionCollegesToCampuses(collegeId, logo, name)
         findNavController().navigate(action)
     }
 

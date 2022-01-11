@@ -18,9 +18,9 @@ import javax.inject.Inject
 class CollegesRecyclerViewAdapter : RecyclerView.Adapter<CollegesRecyclerViewAdapter.CollegeViewHolder>() {
     class CollegeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    private var onItemClickListener: ((Pair<Long, Int>) -> Unit) ?= null
+    private var onItemClickListener: ((Triple<Long, Int,String>) -> Unit) ?= null
 
-    fun setOnItemClickListener(listener : (Pair<Long, Int>) -> Unit){
+    fun setOnItemClickListener(listener : (Triple<Long, Int,String>) -> Unit){
         onItemClickListener = listener
     }
 
@@ -58,7 +58,7 @@ class CollegesRecyclerViewAdapter : RecyclerView.Adapter<CollegesRecyclerViewAda
             this.setOnClickListener {
                 onItemClickListener?.let {
                     it(
-                        Pair(college.id, college.logo)
+                        Triple(college.id, college.logo, college.name)
                     )
                 }
             }

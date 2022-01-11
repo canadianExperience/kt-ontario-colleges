@@ -19,7 +19,7 @@
         android:id="@+id/campusesFragment"
         android:name="com.me.kt_ontario_colleges.ui.campuses.view.CampusesFragment"
         tools:layout="@layout/fragment_campuses"
-        android:label="Campuses" >
+        android:label="{title}" >
         <action
             android:id="@+id/action_campuses_to_map"
             app:destination="@id/mapFragment" />
@@ -29,6 +29,9 @@
         <argument
             android:name="logo"
             app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
 
     <fragment
