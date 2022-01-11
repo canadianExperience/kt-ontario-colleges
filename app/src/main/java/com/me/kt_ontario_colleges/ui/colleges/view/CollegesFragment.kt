@@ -13,7 +13,6 @@ import com.me.kt_ontario_colleges.databinding.FragmentCollegesBinding
 import com.me.kt_ontario_colleges.ui.colleges.viewmodel.CollegesViewModel
 import com.me.kt_ontario_colleges.ui.exhaustive
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class CollegesFragment : Fragment(R.layout.fragment_colleges) {
@@ -37,7 +36,7 @@ class CollegesFragment : Fragment(R.layout.fragment_colleges) {
 
         //Set college click
         collegesRecyclerViewAdapter.setOnItemClickListener {
-            viewModel.onCollegeClick(it)
+            viewModel.onCollegeClick(it.first, it.second)
         }
 
         //Observe colleges
@@ -50,7 +49,7 @@ class CollegesFragment : Fragment(R.layout.fragment_colleges) {
             viewModel.collegeEvent.collect { event->
                 when(event){
                     is CollegesViewModel.CollegeEvent.NavigateToCampusesFragment -> {
-                        goToCampusesFragment(event.collegeId)
+                        goToCampusesFragment(event.collegeId, event.logo)
                     }
                 }.exhaustive
 
@@ -58,8 +57,8 @@ class CollegesFragment : Fragment(R.layout.fragment_colleges) {
         }
     }
 
-    private fun goToCampusesFragment(collegeId: Long) {
-        val action = CollegesFragmentDirections.actionCollegesToCampuses(collegeId)
+    private fun goToCampusesFragment(collegeId: Long, logo: Int) {
+        val action = CollegesFragmentDirections.actionCollegesToCampuses(collegeId, logo)
         findNavController().navigate(action)
     }
 

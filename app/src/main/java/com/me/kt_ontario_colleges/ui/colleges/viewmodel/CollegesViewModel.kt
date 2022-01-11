@@ -21,12 +21,12 @@ class CollegesViewModel @Inject constructor(
 
     val colleges: LiveData<List<College>> = repository.getColleges()
 
-    fun onCollegeClick(id: Long) = viewModelScope.launch {
-        collegeEventChannel.send(CollegeEvent.NavigateToCampusesFragment(id))
+    fun onCollegeClick(id: Long, logo: Int) = viewModelScope.launch {
+        collegeEventChannel.send(CollegeEvent.NavigateToCampusesFragment(id, logo))
     }
 
     sealed class CollegeEvent{
-        data class NavigateToCampusesFragment(val collegeId: Long) : CollegeEvent()
+        data class NavigateToCampusesFragment(val collegeId: Long, val logo: Int) : CollegeEvent()
     }
 
 }

@@ -26,6 +26,9 @@
         <argument
             android:name="collegeId"
             app:argType="long" />
+        <argument
+            android:name="logo"
+            app:argType="integer" />
     </fragment>
 
     <fragment
@@ -40,5 +43,8 @@
         <argument
             android:name="collegeId"
             app:argType="long" />
+        <argument
+            android:name="logo"
+            app:argType="integer" />
     </fragment>
 </navigation>

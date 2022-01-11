@@ -22,15 +22,16 @@ class CampusesViewModel @Inject constructor(
     val campusEvent = campusEventChannel.receiveAsFlow()
 
     private val collegeId = state.get<Long>("collegeId") ?: 0L
+    private val logo = state.get<Int>("logo") ?: 0
 
     val campuses: LiveData<List<Campus>> = repository.getCampusesByOwnerId(collegeId)
 
     fun onCampusClick(campusId: Long, collegeId: Long) = viewModelScope.launch {
-        campusEventChannel.send(CampusEvent.NavigateToMapFragment(campusId, collegeId))
+        campusEventChannel.send(CampusEvent.NavigateToMapFragment(campusId, collegeId, logo))
     }
 
     sealed class CampusEvent{
-        data class NavigateToMapFragment(val campusId: Long, val collegeId: Long) : CampusEvent()
+        data class NavigateToMapFragment(val campusId: Long, val collegeId: Long, val logo: Int) : CampusEvent()
     }
 
 }

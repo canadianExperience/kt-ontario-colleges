@@ -20,7 +20,8 @@ class MapViewModel @Inject constructor(
 ): ViewModel(){
     
     private val collegeId = state.get<Long>("collegeId") ?: 0L
-    private val campusId = state.get<Long>("campusId") ?: 0L
+    val campusId = state.get<Long>("campusId") ?: 0L
+    val logo = state.get<Int>("logo") ?: 0
 
     val campuses: LiveData<List<Campus>> = repository.getCampusesByOwnerId(collegeId)
 
