@@ -9,6 +9,7 @@ Google Map Locations
 
 
 ## Demo
-![colleges](https://user-images.githubusercontent.com/45378000/149217456-ff015678-73ee-43e9-91e3-40f1b3426ca2.gif)
 
+
+![colleges](https://user-images.githubusercontent.com/45378000/149218439-94af9144-4035-4af0-ab38-1832047c698c.gif)
 
