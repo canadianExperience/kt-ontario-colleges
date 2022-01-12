@@ -8,14 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.me.kt_ontario_colleges.R
 import com.me.kt_ontario_colleges.room.entity.College
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
-class CollegesRecyclerViewAdapter : RecyclerView.Adapter<CollegesRecyclerViewAdapter.CollegeViewHolder>() {
+class CollegesRecyclerViewAdapter(private val glide: RequestManager) : RecyclerView.Adapter<CollegesRecyclerViewAdapter.CollegeViewHolder>() {
     class CollegeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     private var onItemClickListener: ((Triple<Long, Int,String>) -> Unit) ?= null
@@ -52,8 +49,8 @@ class CollegesRecyclerViewAdapter : RecyclerView.Adapter<CollegesRecyclerViewAda
 
         holder.itemView.apply {
             name.text = college.name
-           // glide.load(college.logo).into(logo)
-            logo.setImageResource(college.logo)
+            glide.load(college.logo).into(logo)
+           // logo.setImageResource(college.logo)
 
             this.setOnClickListener {
                 onItemClickListener?.let {

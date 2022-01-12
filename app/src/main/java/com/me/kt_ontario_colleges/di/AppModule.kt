@@ -46,15 +46,15 @@ object AppModule {
     @Singleton
     @Provides
     fun injectRepository(dao: CollegeDao) = CollegeRepository(dao) as CollegeRepositoryInterface
-//
-//    @Singleton
-//    @Provides
-//    fun injectGlide(@ApplicationContext context: Context) = Glide.with(context)
-//        .setDefaultRequestOptions(
-//            RequestOptions()
-//                .placeholder(getProgressDrawable(context))
-//                .error(R.drawable.ic_image)
-//        )
+
+    @Singleton
+    @Provides
+    fun injectGlide(@ApplicationContext context: Context) = Glide.with(context)
+        .setDefaultRequestOptions(
+            RequestOptions()
+                .placeholder(getProgressDrawable(context))
+                .error(R.drawable.ic_image)
+        )
 
 
     @ApplicationScope

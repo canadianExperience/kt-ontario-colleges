@@ -3,6 +3,8 @@ package com.me.kt_ontario_colleges.ui.colleges.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.me.kt_ontario_colleges.repository.CollegeRepositoryInterface
 import com.me.kt_ontario_colleges.room.entity.College
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CollegesViewModel @Inject constructor(
-    private val repository: CollegeRepositoryInterface
+    private val repository: CollegeRepositoryInterface,
+    val glide: RequestManager
 ): ViewModel(){
     private val collegeEventChannel = Channel<CollegeEvent>()
     val collegeEvent = collegeEventChannel.receiveAsFlow()
