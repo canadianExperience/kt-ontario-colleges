@@ -53,13 +53,15 @@ class MapFragment: Fragment(R.layout.fragment_map){
                 }
             }
         }
+
+        //Observe map loaded
+        viewModel.isMapLoaded.observe(viewLifecycleOwner){isLoaded ->
+            val progressVisibility =  if(isLoaded) View.GONE else View.VISIBLE
+            binding.progress.visibility = progressVisibility
+        }
     }
 
     private fun setUpClusterer(campuses: List<Campus>) {
-        val logo = viewModel.logo
-        val campus = campuses.first { it.id == viewModel.campusId }
-        val position = geocoder.getFromLocationName(campus.address, 1).first()
-
         clusterManager = ClusterManager(context, map)
         clusterManagerRenderer = MyClusterManagerRenderer(requireContext(), map, clusterManager)
         clusterManager.renderer = clusterManagerRenderer
@@ -71,16 +73,21 @@ class MapFragment: Fragment(R.layout.fragment_map){
             uiSettings.isMyLocationButtonEnabled = true
         }
 
+        val logo = viewModel.logo
+        val campus = campuses.first { it.id == viewModel.campusId }
+        val position = geocoder.getFromLocationName(campus.address, 1).first()
+
         // Add cluster items (markers) to the cluster manager
         campuses.map {
             val location = geocoder.getFromLocationName(it.address, 1).first()
             val marker = ClusterMarker(location.latitude, location.longitude, "${it.name} Campus" , it.address, logo)
             clusterManager.addItem(marker)
         }
+
+        viewModel.setMapLoaded(true)
         clusterManager.cluster()
 
         setCameraView(position)
-
     }
 
     private fun setCameraView(position: Address) {
@@ -92,7 +99,8 @@ class MapFragment: Fragment(R.layout.fragment_map){
             LatLng(bottomBoundary, leftBoundary),
             LatLng(topBoundary, rightBoundary)
         )
-        map.animateCamera(CameraUpdateFactory.newLatLngBounds(mapBoundary, 0))
+//        map.animateCamera(CameraUpdateFactory.newLatLngBounds(mapBoundary, 0))
+        map.moveCamera(CameraUpdateFactory.newLatLngBounds(mapBoundary, 0))
     }
 
     override fun onDestroy() {

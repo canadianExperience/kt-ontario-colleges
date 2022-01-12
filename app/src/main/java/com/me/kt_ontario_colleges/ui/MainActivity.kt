@@ -15,14 +15,8 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
-//    @Inject
-//    lateinit var fragmentFactory: AppFragmentFactory
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-//        supportFragmentManager.fragmentFactory = fragmentFactory
-
 
         val binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
@@ -38,12 +32,4 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, null)
     }
-
-//    internal fun onOpenMap(){
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.container, MapFragment)
-//            .commitNow()
-//
-//    }
-
 }
