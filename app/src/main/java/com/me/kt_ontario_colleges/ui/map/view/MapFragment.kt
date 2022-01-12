@@ -74,7 +74,7 @@ class MapFragment: Fragment(R.layout.fragment_map){
         // Add cluster items (markers) to the cluster manager
         campuses.map {
             val location = geocoder.getFromLocationName(it.address, 1).first()
-            val marker = ClusterMarker(location.latitude, location.longitude, it.name, it.address, logo)
+            val marker = ClusterMarker(location.latitude, location.longitude, "${it.name} Campus" , it.address, logo)
             clusterManager.addItem(marker)
         }
         clusterManager.cluster()

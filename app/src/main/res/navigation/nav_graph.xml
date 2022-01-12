@@ -19,7 +19,7 @@
         android:id="@+id/campusesFragment"
         android:name="com.me.kt_ontario_colleges.ui.campuses.view.CampusesFragment"
         tools:layout="@layout/fragment_campuses"
-        android:label="{title}" >
+        android:label="{title} Campuses" >
         <action
             android:id="@+id/action_campuses_to_map"
             app:destination="@id/mapFragment" />
@@ -38,7 +38,7 @@
         android:id="@+id/mapFragment"
         android:name="com.me.kt_ontario_colleges.ui.map.view.MapFragment"
         tools:layout="@layout/fragment_map"
-        android:label="Map" >
+        android:label="{title} Locations" >
         <argument
             android:name="campusId"
             app:argType="long" />
@@ -49,5 +49,8 @@
         <argument
             android:name="logo"
             app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
 </navigation>

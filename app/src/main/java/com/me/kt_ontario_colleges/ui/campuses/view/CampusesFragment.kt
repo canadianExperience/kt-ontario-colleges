@@ -47,15 +47,15 @@ class CampusesFragment : Fragment(R.layout.fragment_campuses) {
             viewModel.campusEvent.collect { event->
                 when(event){
                     is CampusesViewModel.CampusEvent.NavigateToMapFragment -> {
-                        goToMapFragment(event.campusId, event.collegeId, event.logo)
+                        goToMapFragment(event.campusId, event.collegeId, event.logo, event.name)
                     }
                 }.exhaustive
             }
         }
     }
 
-    private fun goToMapFragment(campusId: Long, collegeId: Long, logo: Int) {
-        val action = CampusesFragmentDirections.actionCampusesToMap(campusId, collegeId, logo)
+    private fun goToMapFragment(campusId: Long, collegeId: Long, logo: Int, name: String) {
+        val action = CampusesFragmentDirections.actionCampusesToMap(campusId, collegeId, logo, name)
         findNavController().navigate(action)
     }
 
