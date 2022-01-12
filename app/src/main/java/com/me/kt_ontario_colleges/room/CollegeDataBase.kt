@@ -6,6 +6,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.me.kt_ontario_colleges.di.ApplicationScope
 import com.me.kt_ontario_colleges.room.entity.Campus
 import com.me.kt_ontario_colleges.room.entity.College
+import com.me.kt_ontario_colleges.room.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,8 +30,12 @@ abstract class CollegeDataBase: RoomDatabase() {
             val collegeDao = dataBase.get().collegeDao()
 
             applicationScope.launch {
-                collegeDao.insertCompletedCollege(centennialCollege(), centennialCollegeCampuses())
-                collegeDao.insertCompletedCollege(senecaCollege(), senecaCollegeCampuses())
+                collegeDao.insertCompletedCollege(centennialCollege(), centennialCampuses())
+                collegeDao.insertCompletedCollege(senecaCollege(), senecaCampuses())
+                collegeDao.insertCompletedCollege(canadoreCollege(), canadoreCampuses())
+                collegeDao.insertCompletedCollege(georgeBrownCollege(), georgeBrownCampuses())
+                collegeDao.insertCompletedCollege(humberCollege(), humberCampuses())
+                collegeDao.insertCompletedCollege(sheridanCollege(), sheridanCampuses())
             }
         }
     }

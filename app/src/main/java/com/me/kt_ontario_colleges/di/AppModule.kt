@@ -2,6 +2,7 @@ package com.me.kt_ontario_colleges.di
 
 import android.app.Application
 import android.content.Context
+import android.location.Geocoder
 import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -56,6 +57,10 @@ object AppModule {
                 .error(R.drawable.ic_image)
         )
 
+
+    @Singleton
+    @Provides
+    fun injectGeocoder(@ApplicationContext context: Context) = Geocoder(context)
 
     @ApplicationScope
     @Provides

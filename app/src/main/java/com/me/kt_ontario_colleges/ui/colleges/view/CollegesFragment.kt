@@ -8,13 +8,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.RequestManager
+
 import com.me.kt_ontario_colleges.R
 import com.me.kt_ontario_colleges.databinding.FragmentCollegesBinding
 import com.me.kt_ontario_colleges.ui.colleges.viewmodel.CollegesViewModel
 import com.me.kt_ontario_colleges.ui.exhaustive
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class CollegesFragment : Fragment(R.layout.fragment_colleges) {

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -21,6 +22,8 @@ import com.me.kt_ontario_colleges.ui.map.util.ClusterMarker
 import com.google.maps.android.clustering.ClusterManager
 import com.me.kt_ontario_colleges.R
 import com.google.android.gms.maps.model.LatLngBounds
+import com.me.kt_ontario_colleges.ui.colleges.viewmodel.CollegesViewModel
+import com.me.kt_ontario_colleges.ui.exhaustive
 import com.me.kt_ontario_colleges.ui.map.util.MyClusterManagerRenderer
 
 
@@ -49,7 +52,8 @@ class MapFragment: Fragment(R.layout.fragment_map){
             campuses?.let {
                 mapFragment.getMapAsync {googleMap ->
                     map = googleMap
-                    setUpClusterer(campuses)
+                    setUpClusterer()
+                    viewModel.getLocations(campuses)
                 }
             }
         }
@@ -59,9 +63,28 @@ class MapFragment: Fragment(R.layout.fragment_map){
             val progressVisibility =  if(isLoaded) View.GONE else View.VISIBLE
             binding.progress.visibility = progressVisibility
         }
+
+        //Map events
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.mapEvent.collect { event->
+                when(event){
+                    is MapViewModel.MapEvent.MapReady -> {
+                        clusterManager.apply {
+                            addItems(event.clusterMarkers)
+                            cluster()
+                        }
+
+                        event.bounds?.let {
+                            map.moveCamera(CameraUpdateFactory.newLatLngBounds(it, 0))
+                        }
+                    }
+                }.exhaustive
+
+            }
+        }
     }
 
-    private fun setUpClusterer(campuses: List<Campus>) {
+    private fun setUpClusterer() {
         clusterManager = ClusterManager(context, map)
         clusterManagerRenderer = MyClusterManagerRenderer(requireContext(), map, clusterManager)
         clusterManager.renderer = clusterManagerRenderer
@@ -72,35 +95,6 @@ class MapFragment: Fragment(R.layout.fragment_map){
             uiSettings.isZoomControlsEnabled = true
             uiSettings.isMyLocationButtonEnabled = true
         }
-
-        val logo = viewModel.logo
-        val campus = campuses.first { it.id == viewModel.campusId }
-        val position = geocoder.getFromLocationName(campus.address, 1).first()
-
-        // Add cluster items (markers) to the cluster manager
-        campuses.map {
-            val location = geocoder.getFromLocationName(it.address, 1).first()
-            val marker = ClusterMarker(location.latitude, location.longitude, "${it.name} Campus" , it.address, logo)
-            clusterManager.addItem(marker)
-        }
-
-        viewModel.setMapLoaded(true)
-        clusterManager.cluster()
-
-        setCameraView(position)
-    }
-
-    private fun setCameraView(position: Address) {
-        val bottomBoundary = position.latitude - .1
-        val leftBoundary = position.longitude - .1
-        val topBoundary = position.latitude + .1
-        val rightBoundary = position.longitude + .1
-        val mapBoundary = LatLngBounds(
-            LatLng(bottomBoundary, leftBoundary),
-            LatLng(topBoundary, rightBoundary)
-        )
-//        map.animateCamera(CameraUpdateFactory.newLatLngBounds(mapBoundary, 0))
-        map.moveCamera(CameraUpdateFactory.newLatLngBounds(mapBoundary, 0))
     }
 
     override fun onDestroy() {
