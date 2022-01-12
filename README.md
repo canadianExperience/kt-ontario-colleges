@@ -1,6 +1,6 @@
 # Ontario Colleges
 
-Google Map Locations
+Google Maps, Hilt, MVVM, Room DB, Navigation
 
 
 ## Author
