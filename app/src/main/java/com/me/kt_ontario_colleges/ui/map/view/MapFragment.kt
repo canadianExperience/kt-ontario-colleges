@@ -1,6 +1,6 @@
 package com.me.kt_ontario_colleges.ui.map.view
 
-import android.location.Address
+
 import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
@@ -10,21 +10,14 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-
-import com.me.kt_ontario_colleges.databinding.FragmentMapBinding
-import com.me.kt_ontario_colleges.room.entity.Campus
-import com.me.kt_ontario_colleges.ui.map.viewmodel.MapViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import com.me.kt_ontario_colleges.ui.map.util.ClusterMarker
-
-
 import com.google.maps.android.clustering.ClusterManager
 import com.me.kt_ontario_colleges.R
-import com.google.android.gms.maps.model.LatLngBounds
-import com.me.kt_ontario_colleges.ui.colleges.viewmodel.CollegesViewModel
+import com.me.kt_ontario_colleges.databinding.FragmentMapBinding
 import com.me.kt_ontario_colleges.ui.exhaustive
+import com.me.kt_ontario_colleges.ui.map.util.ClusterMarker
 import com.me.kt_ontario_colleges.ui.map.util.MyClusterManagerRenderer
+import com.me.kt_ontario_colleges.ui.map.viewmodel.MapViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint

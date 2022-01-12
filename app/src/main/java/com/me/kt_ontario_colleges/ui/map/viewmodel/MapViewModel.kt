@@ -29,20 +29,14 @@ class MapViewModel @Inject constructor(
     val isMapLoaded: LiveData<Boolean> get() = _isMapLoaded
 
     private val collegeId = state.get<Long>("collegeId") ?: 0L
-    val campusId = state.get<Long>("campusId") ?: 0L
-    val logo = state.get<Int>("logo") ?: 0
+    private val campusId = state.get<Long>("campusId") ?: 0L
+    private val logo = state.get<Int>("logo") ?: 0
 
     val campuses: LiveData<List<Campus>> = repository.getCampusesByOwnerId(collegeId)
 
     init {
-        setMapLoaded(false)
+        _isMapLoaded.value = false
     }
-
-    private fun setMapLoaded(isLoaded: Boolean){
-        _isMapLoaded.value = isLoaded
-    }
-
-    private fun postMapLoaded(isLoaded: Boolean) = _isMapLoaded.postValue(isLoaded)
 
     fun getLocations(campuses: List<Campus>) {
         val markers = mutableListOf<ClusterMarker>()
@@ -64,7 +58,7 @@ class MapViewModel @Inject constructor(
                 markers
             ))
 
-            postMapLoaded(true)
+            _isMapLoaded.postValue(true)
         }
     }
 
