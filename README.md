@@ -1,6 +1,11 @@
 # Ontario Colleges
 
-Google Maps, Hilt, MVVM, Room DB, Navigation, Glide
+- Google Maps 
+- Hilt 
+- MVVM 
+- Room DB 
+- Navigation 
+- Glide
 
 
 ## Author
